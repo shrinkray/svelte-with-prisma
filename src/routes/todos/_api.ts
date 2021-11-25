@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable default-case */
 import type { Request } from '@sveltejs/kit';
 import type { Locals } from '$lib/types';
 import PrismaClient from '$lib/prisma';
@@ -34,8 +36,8 @@ export async function api(request: Request<Locals>, resource: string, data?: Tod
 		case 'DELETE':
 			await prisma.todo.delete({
 				where: {
-					uid: resource.split('/').pop()
-				}
+					uid: resource.split('/').pop(),
+				},
 			});
 			status = 200;
 			break;
@@ -47,11 +49,11 @@ export async function api(request: Request<Locals>, resource: string, data?: Tod
 			body = await prisma.todo.update({
 				data: {
 					done: data.done,
-					text: data.text
+					text: data.text,
 				},
 				where: {
-					uid: resource.split('/').pop()
-				}
+					uid: resource.split('/').pop(),
+				},
 			});
 			status = 200;
 			break;
@@ -60,12 +62,11 @@ export async function api(request: Request<Locals>, resource: string, data?: Tod
 				data: {
 					created_at: new Date(),
 					done: false,
-					text: data.text
-				}
+					text: data.text,
+				},
 			});
 			status = 201;
 			break;
-		case 'DEFAULT'
 	}
 
 	// if the request came from a <form> submission, the browser's default
@@ -76,13 +77,13 @@ export async function api(request: Request<Locals>, resource: string, data?: Tod
 		return {
 			status: 303,
 			headers: {
-				location: '/todos'
+				location: '/todos',
 			},
 		};
 	}
 
 	return {
 		status,
-		body
+		body,
 	};
 }
