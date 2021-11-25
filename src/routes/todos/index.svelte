@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
 	import { enhance } from '$lib/form';
 	import type { Load } from '@sveltejs/kit';
+	import type { Todo } from "./_api.ts";
 
 	// see https://kit.svelte.dev/docs#loading
 	export const load: Load = async ({ fetch }) => {
@@ -25,14 +26,6 @@
 <script lang="ts">
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
-
-	type Todo = {
-		uid: string;
-		created_at: Date;
-		text: string;
-		done: boolean;
-		pending_delete: boolean;
-	};
 
 	export let todos: Todo[];
 
